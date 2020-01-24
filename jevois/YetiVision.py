@@ -85,14 +85,23 @@ class YetiVision:
         
             return "{},{},{},{},{}".format(area, x, y, h, w)
 
+        def distanceToContour(contour):
+            x,y,w,h = cv2.boundingRect(np.array(contour[0]))
+            actualWidth = 39.25
+            focalLength = (22 * 55) / actualWidth
+            return (actualWidth * focalLength)/w
+
+        contour = self.filter_contours_output
 
         if len(self.filter_contours_output) < 1:
             jevois.sendSerial("No contours found")
         else:
-            contour = self.filter_contours_output
-            # contour = str(contour)
-            # jevois.sendSerial(contour)
+            # message = "{},{}".format(formatContour(contour), distanceToContour(contour))
             jevois.sendSerial(formatContour(contour))
+        
+           
+        
+            
 
         outframe.sendCvBGR(outimg)
 

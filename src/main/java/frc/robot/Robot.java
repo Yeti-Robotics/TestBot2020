@@ -13,10 +13,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import com.revrobotics.ColorSensorV3;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.hal.util.UncleanStatusException;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.WheelOfFortuneSubsystem;
+import frc.robot.utils.Contour;
+import frc.robot.utils.JeVois;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,6 +37,10 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer robotContainer;
 
+  private UsbCamera jevoisView;
+
+  private JeVois jevois;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -37,48 +49,46 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    // final UsbCamera cam = CameraServer.getInstance().startAutomaticCapture(0);
+    // cam.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 150, 30);
+    // cam.setBrightness(50);
+
+    jevoisView = CameraServer.getInstance().startAutomaticCapture(0);
+    jevoisView.setVideoMode(VideoMode.PixelFormat.kYUYV, 320, 240, 30);
+
     robotContainer = new RobotContainer();
+
+    jevois = new JeVois();
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like diagnostics that you want ran during disabled, autonomous,
+   * teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
     // SmartDashboard.putString("i'm working", "ok");
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // Runs the Scheduler. This is responsible for polling buttons, adding
+    // newly-scheduled
+    // commands, running already-scheduled commands, removing finished or
+    // interrupted commands,
+    // and running subsystem periodic() methods. This must be called from the
+    // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     // System.out.println(WheelOfFortuneSubsystem.wheelColor);
+    jevois.parseStream();
 
-    // System.out.println("I am working");
-//
-//    Color detectedColor = m_colorSensor.getColor();
-//    // double IR = m_colorSensor.getIR();
 
-//    SmartDashboard.putNumber("red", detectedColor.red);
-//    SmartDashboard.putNumber("green", detectedColor.green);
-//    SmartDashboard.putNumber("blue", detectedColor.blue);
 
-//    if(detectedColor.red > 0.5 && detectedColor.green < 0.4 && detectedColor.blue < 0.3) {
-//      System.out.println("it's a red");
-//    } else if(detectedColor.red < 0.3 && detectedColor.green > 0.5 && detectedColor.blue < 0.3) {
-//      System.out.println("she's green");
-//    } else if(detectedColor.red < 0.2 && detectedColor.blue > 0.3 && detectedColor.green > 0.3){
-//      System.out.println("iT'S cYaN. it's blue but ok karen");
-//    } else if(detectedColor.red > 0.3 && detectedColor.green > 0.3 && detectedColor.blue < 0.3){
-//      System.out.println("yellow :)");
-//    } else {
-//      System.out.println("idk bro");
-//    }
   }
 
+ 
   /**
    * This function is called once each time the robot enters Disabled mode.z
    */

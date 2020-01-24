@@ -24,9 +24,21 @@ public final class Constants {
     public static final int RIGHT_SPARK_1 = 3;
     public static final int RIGHT_SPARK_2 = 4;
     public static final int RIGHT_SPARK_3 = 5;
-
+    public static final int INTAKE_SPARK = 1738;
+    public static final int NECK_SPARK_MINI = 69;
+    public static final int NECK_SPARK_BELT = 420;
 
     public static final int WHEEL_OF_FORTUNE_TALON = 5;
     public static final int LEFT_JOYSTICK = 0;
     public static final int RIGHT_JOYSTICK = 1;
+    public static final int SECONDARY_JOYSTICK = 2;
+
+    public static final int JEVOIS_BAUD_RATE = 115200;
+
+    public static final double ROLL_IN_SPEED = 0.5;
+    public static final double ROLL_OUT_SPEED = -0.5;
+    public static final double MINI_ROLL_IN = 0.5;
+    public static final double MINI_ROLL_OUT = -0.5;
+    public static final double BELT_UP = 0.5;
+    public static final double BELT_DOWN = -0.5;
 }
