@@ -30,6 +30,8 @@ public final class Constants {
     public static final int SHOOTER_1_SPARK = 987654321;
     public static final int SHOOTER_2_SPARK = 123456789;
 
+    public static final int SHOOTER_SERVO = 123;
+
     public static final int WHEEL_OF_FORTUNE_TALON = 5;
     public static final int LEFT_JOYSTICK = 0;
     public static final int RIGHT_JOYSTICK = 1;

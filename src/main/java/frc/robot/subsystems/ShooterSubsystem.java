@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -9,10 +10,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private Spark shooter1Spark;
     private Spark shooter2Spark;
+    private Servo hoodServo;
 
     public ShooterSubsystem() {
         shooter1Spark = new Spark(Constants.SHOOTER_1_SPARK);
         shooter2Spark = new Spark(Constants.SHOOTER_2_SPARK);
+        hoodServo = new Servo(Constants.SHOOTER_SERVO);
     }
 
     public void shoot(){
@@ -28,6 +31,14 @@ public class ShooterSubsystem extends SubsystemBase {
     public void stopShoot(){
         shooter1Spark.set(0);
         shooter2Spark.set(0);
+    }
+
+    public void setHoodAngle(double angle){
+        hoodServo.setAngle(angle);
+    }
+
+    public double getHoodAngle(){
+        return hoodServo.getAngle();
     }
 
 }
