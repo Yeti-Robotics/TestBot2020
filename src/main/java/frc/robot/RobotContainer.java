@@ -11,10 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.neck.BeltDownCommand;
-import frc.robot.commands.neck.BeltUpCommand;
-import frc.robot.commands.neck.MiniRollInCommand;
-import frc.robot.commands.neck.MiniRollOutCommand;
+import frc.robot.commands.neck.MoveUpNeckCommand;
+import frc.robot.commands.neck.MoveDownNeckCommand;
 import frc.robot.commands.shooting.ReverseShootCommand;
 import frc.robot.commands.shooting.ShootCommand;
 import frc.robot.commands.wheelOfFortune.PositionControlCommand;
@@ -78,17 +76,11 @@ public class RobotContainer {
     JoystickButton rollOut = new JoystickButton(secondaryJoy, 2);
     rollOut.whenPressed(new RollOutCommand(intakeSubsystem));
 
-    JoystickButton miniRollIn = new JoystickButton(secondaryJoy, 3);
-    miniRollIn.whenPressed(new MiniRollInCommand(neckSubsystem));
+    JoystickButton neckMoveUp = new JoystickButton(secondaryJoy, 3);
+    neckMoveUp.whenPressed(new MoveUpNeckCommand(neckSubsystem));
 
-    JoystickButton miniRollOut = new JoystickButton(secondaryJoy, 4);
-    miniRollOut.whenPressed(new MiniRollOutCommand(neckSubsystem));
-
-    JoystickButton beltUp = new JoystickButton(secondaryJoy, 5);
-    beltUp.whenPressed(new BeltUpCommand(neckSubsystem));
-
-    JoystickButton beltDown = new JoystickButton(secondaryJoy, 6);
-    beltDown.whenPressed(new BeltDownCommand(neckSubsystem));
+    JoystickButton neckMoveDown = new JoystickButton(secondaryJoy, 4);
+    neckMoveDown.whenPressed(new MoveDownNeckCommand(neckSubsystem));
 
     JoystickButton shoot = new JoystickButton(secondaryJoy, 7);
     shoot.whenPressed(new ShootCommand(shooterSubsystem));

@@ -6,37 +6,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class NeckSubsystem extends SubsystemBase {
+    private Spark neckSpark;
 
-
-    private Spark neckSparkMini;
-    private Spark neckSparkBelt;
     public NeckSubsystem() {
-      neckSparkMini = new Spark(Constants.NECK_SPARK_MINI);
-      neckSparkBelt = new Spark(Constants.NECK_SPARK_BELT);
+      neckSpark = new Spark(Constants.NECK_SPARK);
     }
 
-    public void miniRollIn(){
-        neckSparkMini.set(Constants.MINI_ROLL_IN);
+    public void moveUp(){
+        neckSpark.set(Constants.NECK_UP_SPEED);
     }
 
-    public void miniRollOut(){
-        neckSparkMini.set(Constants.MINI_ROLL_OUT);
+    public void moveDown(){
+        neckSpark.set(Constants.NECK_DOWN_SPEED);
     }
 
-    public void miniRollStop(){
-        neckSparkMini.set(0);
-    }
-
-    public void beltUp(){
-        neckSparkBelt.set(Constants.BELT_UP);
-    }
-
-    public void beltDown(){
-        neckSparkBelt.set(Constants.BELT_DOWN);
-    }
-
-    public void beltStop(){
-        neckSparkBelt.set(0);
+    public void stopNeck(){
+        neckSpark.set(0);
     }
 }
 
