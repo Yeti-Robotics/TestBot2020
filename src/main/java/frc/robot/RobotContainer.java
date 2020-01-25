@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.neck.BeltDownCommand;
+import frc.robot.commands.neck.BeltUpCommand;
+import frc.robot.commands.neck.MiniRollInCommand;
+import frc.robot.commands.neck.MiniRollOutCommand;
+import frc.robot.commands.shooting.ReverseShootCommand;
+import frc.robot.commands.shooting.ShootCommand;
 import frc.robot.commands.wheelOfFortune.PositionControlCommand;
 import frc.robot.commands.intake.RollInCommand;
 import frc.robot.commands.intake.RollOutCommand;
 import frc.robot.commands.wheelOfFortune.RotationControlCommand;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.NeckSubsystem;
-import frc.robot.subsystems.WheelOfFortuneSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -35,6 +38,7 @@ public class RobotContainer {
   private DrivetrainSubsystem drivetrainSubsystem;
   private IntakeSubsystem intakeSubsystem;
   private NeckSubsystem neckSubsystem;
+  private ShooterSubsystem shooterSubsystem;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -48,6 +52,8 @@ public class RobotContainer {
     wheelOfFortuneSubsystem = new WheelOfFortuneSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     neckSubsystem = new NeckSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
+
 //    drivetrainSubsystem.setDefaultCommand(new RunCommand(() -> {drivetrainSubsystem.drive(-getLeftY(), -getLeftY()))});
     // Configure the button bindings
     configureButtonBindings();
@@ -71,6 +77,24 @@ public class RobotContainer {
 
     JoystickButton rollOut = new JoystickButton(secondaryJoy, 2);
     rollOut.whenPressed(new RollOutCommand(intakeSubsystem));
+
+    JoystickButton miniRollIn = new JoystickButton(secondaryJoy, 3);
+    miniRollIn.whenPressed(new MiniRollInCommand(neckSubsystem));
+
+    JoystickButton miniRollOut = new JoystickButton(secondaryJoy, 4);
+    miniRollOut.whenPressed(new MiniRollOutCommand(neckSubsystem));
+
+    JoystickButton beltUp = new JoystickButton(secondaryJoy, 5);
+    beltUp.whenPressed(new BeltUpCommand(neckSubsystem));
+
+    JoystickButton beltDown = new JoystickButton(secondaryJoy, 6);
+    beltDown.whenPressed(new BeltDownCommand(neckSubsystem));
+
+    JoystickButton shoot = new JoystickButton(secondaryJoy, 7);
+    shoot.whenPressed(new ShootCommand(shooterSubsystem));
+
+    JoystickButton reverseShoot = new JoystickButton(secondaryJoy, 8);
+    reverseShoot.whenPressed(new ReverseShootCommand(shooterSubsystem));
   }
 
   public double getLeftY() {
