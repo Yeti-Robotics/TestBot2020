@@ -25,10 +25,10 @@ public final class Constants {
     public static final int RIGHT_SPARK_2 = 4;
     public static final int RIGHT_SPARK_3 = 5;
     public static final int INTAKE_SPARK = 1738;
-    public static final int NECK_SPARK_MINI = 69;
-    public static final int NECK_SPARK_BELT = 420;
+    public static final int NECK_SPARK = 69;
     public static final int SHOOTER_1_SPARK = 987654321;
     public static final int SHOOTER_2_SPARK = 123456789;
+    public static final int FUNNEL_SPARK = 23488;
 
     public static final int WHEEL_OF_FORTUNE_TALON = 5;
     public static final int LEFT_JOYSTICK = 0;
@@ -39,12 +39,12 @@ public final class Constants {
 
     public static final double ROLL_IN_SPEED = 0.5;
     public static final double ROLL_OUT_SPEED = -0.5;
-    public static final double MINI_ROLL_IN = 0.5;
-    public static final double MINI_ROLL_OUT = -0.5;
-    public static final double BELT_UP = 0.5;
-    public static final double BELT_DOWN = -0.5;
+    public static final double NECK_UP_SPEED = 0.5;
+    public static final double NECK_DOWN_SPEED = -0.5;
     public static final double SHOOT_1_SPEED = 0.5;
     public static final double SHOOT_2_SPEED = 0.5;
     public static final double REVERSE_SHOOT_1_SPEED = -0.5;
     public static final double REVERSE_SHOOT_2_SPEED = -0.5;
+    public static final double FUNNEL_IN_SPEED = 0.5;
+    public static final double FUNNEL_OUT_SPEED = -0.5;
 }

@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NeckSubsystem;
 
 
-public class MiniRollOutCommand extends CommandBase {
+public class MoveUpNeckCommand extends CommandBase {
     private final NeckSubsystem neckSubsystem;
-    public MiniRollOutCommand(NeckSubsystem neckSubsystem) {
+    public MoveUpNeckCommand(NeckSubsystem neckSubsystem) {
         this.neckSubsystem = neckSubsystem;
         addRequirements(neckSubsystem);
     }
@@ -18,7 +18,7 @@ public class MiniRollOutCommand extends CommandBase {
 
     @Override
     public void execute() {
-        neckSubsystem.miniRollOut();
+        neckSubsystem.moveUp();
     }
 
     @Override
@@ -29,6 +29,6 @@ public class MiniRollOutCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        neckSubsystem.miniRollStop();
+        neckSubsystem.stopNeck();
     }
 }
