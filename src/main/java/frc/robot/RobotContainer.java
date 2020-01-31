@@ -10,16 +10,22 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.funnel.FunnelInCommand;
 import frc.robot.commands.neck.MoveUpNeckCommand;
 import frc.robot.commands.neck.MoveDownNeckCommand;
 import frc.robot.commands.shooting.ReverseShootCommand;
+import frc.robot.commands.shooting.SetHoodAngleCommand;
 import frc.robot.commands.shooting.ShootCommand;
 import frc.robot.commands.wheelOfFortune.PositionControlCommand;
 import frc.robot.commands.intake.RollInCommand;
 import frc.robot.commands.intake.RollOutCommand;
 import frc.robot.commands.wheelOfFortune.RotationControlCommand;
 import frc.robot.subsystems.*;
+
+import java.util.function.BooleanSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -37,6 +43,7 @@ public class RobotContainer {
   private IntakeSubsystem intakeSubsystem;
   private NeckSubsystem neckSubsystem;
   private ShooterSubsystem shooterSubsystem;
+  private FunnelSubsystem funnelSubsystem;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -51,6 +58,7 @@ public class RobotContainer {
     intakeSubsystem = new IntakeSubsystem();
     neckSubsystem = new NeckSubsystem();
     shooterSubsystem = new ShooterSubsystem();
+    funnelSubsystem = new FunnelSubsystem();
 
 //    drivetrainSubsystem.setDefaultCommand(new RunCommand(() -> {drivetrainSubsystem.drive(-getLeftY(), -getLeftY()))});
     // Configure the button bindings
@@ -87,6 +95,18 @@ public class RobotContainer {
 
     JoystickButton reverseShoot = new JoystickButton(secondaryJoy, 8);
     reverseShoot.whenPressed(new ReverseShootCommand(shooterSubsystem));
+
+    JoystickButton shootingCommandGroup = new JoystickButton(secondaryJoy, 9);
+    shootingCommandGroup.whenPressed(
+            new SequentialCommandGroup(
+                    new SetHoodAngleCommand(shooterSubsystem, 45),
+                    new ParallelCommandGroup(
+                            new FunnelInCommand(funnelSubsystem),
+                            new MoveUpNeckCommand(neckSubsystem),
+                            new ShootCommand(shooterSubsystem)
+                    )
+            ).withInterrupt(() -> !neckSubsystem.getUpperBeamBreak())
+    );
   }
 
   public double getLeftY() {

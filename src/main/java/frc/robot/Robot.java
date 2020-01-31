@@ -26,6 +26,12 @@ import frc.robot.subsystems.WheelOfFortuneSubsystem;
 import frc.robot.utils.Contour;
 import frc.robot.utils.JeVois;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.utils.Limelight;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -84,8 +90,28 @@ public class Robot extends TimedRobot {
     // System.out.println(WheelOfFortuneSubsystem.wheelColor);
     jevois.parseStream();
 
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+    NetworkTableEntry tlong = table.getEntry("tlong");
 
+//read values periodically
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+    double schlong = tlong.getDouble(0.0);
 
+//post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+
+    SmartDashboard.putNumber("schlong", schlong);
+
+    SmartDashboard.putNumber("distance", Limelight.getDistance());
+
+    SmartDashboard.putNumber("hor distance", Limelight.getHorDistance());
   }
 
  
