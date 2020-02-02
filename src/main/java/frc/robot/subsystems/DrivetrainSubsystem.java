@@ -32,8 +32,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         right3Spark = new Spark(Constants.RIGHT_SPARK_3);
 
         left3Spark.setInverted(true);
-        right3Spark.setInverted(true);
-
     }
     public void drive(double leftPower, double rightPower) {
         left1Spark.set(leftPower);
@@ -42,7 +40,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         right1Spark.set(rightPower);
         right2Spark.set(rightPower);
         right3Spark.set(rightPower);
+    }
 
+    public void driveWithMinPower(double leftPower, double rightPower, double minAbsolutePower) {
+        double realLeftPower = (leftPower/Math.abs(leftPower))*Math.max(Math.abs(leftPower), minAbsolutePower);
+        double realRightPower = (rightPower/Math.abs(rightPower))*Math.max(Math.abs(rightPower), minAbsolutePower);
+
+        left1Spark.set(realLeftPower);
+        left2Spark.set(realLeftPower);
+        left3Spark.set(realLeftPower);
+        right1Spark.set(realRightPower);
+        right2Spark.set(realRightPower);
+        right3Spark.set(realRightPower);
     }
 
     @Override
@@ -50,6 +59,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         double leftY = Robot.robotContainer.leftJoy.getY();
         double rightY = Robot.robotContainer.rightJoy.getY();
         drive(-leftY, rightY);
+
         // System.out.println("drivetrain periodic");
 
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");

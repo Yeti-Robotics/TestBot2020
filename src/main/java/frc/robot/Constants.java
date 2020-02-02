@@ -58,5 +58,10 @@ public final class Constants {
     public static final double KNOWN_TAPE_BOUND_WIDTH = 39.25; //inches
     public static final double FOCAL_LENGTH = ( KNOWN_DISTANCE * PIXEL_WIDTH_KNOWN) / KNOWN_TAPE_BOUND_WIDTH;
 
+    public static final int SHOOTER_HEIGHT = 23; // inches
+    public static final double GRAVITY = 386.09; // inches/ sec ^2
 
+    public static final double kTurnP = .06;
+    public static final double kTurnI = 0;
+    public static final double kTurnD = .005;
 }

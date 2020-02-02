@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.drivetrain.TurnToTargetCommand;
 import frc.robot.commands.funnel.FunnelInCommand;
 import frc.robot.commands.neck.MoveUpNeckCommand;
 import frc.robot.commands.neck.MoveDownNeckCommand;
@@ -107,6 +108,23 @@ public class RobotContainer {
                     )
             ).withInterrupt(() -> !neckSubsystem.getUpperBeamBreak())
     );
+
+    JoystickButton alignAndShootCommandGroup = new JoystickButton(secondaryJoy, 11);
+    shootingCommandGroup.whenPressed(
+
+            new SequentialCommandGroup(
+                    new TurnToTargetCommand(drivetrainSubsystem),
+                    new SetHoodAngleCommand(shooterSubsystem,45),
+                    new ParallelCommandGroup(
+                            new MoveUpNeckCommand(neckSubsystem),
+                            new ShootCommand(shooterSubsystem)
+                    )
+            )
+    );
+
+
+    JoystickButton turnToTarget = new JoystickButton(secondaryJoy,10);
+    turnToTarget.whenPressed(new TurnToTargetCommand(drivetrainSubsystem));
   }
 
   public double getLeftY() {

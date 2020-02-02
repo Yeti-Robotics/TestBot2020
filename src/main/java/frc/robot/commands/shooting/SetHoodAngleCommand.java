@@ -16,7 +16,7 @@ public class SetHoodAngleCommand extends CommandBase {
 
     @Override
     public void initialize() {
-
+        hoodAngle = shooterSubsystem.calcHoodAngle();
     }
 
     @Override

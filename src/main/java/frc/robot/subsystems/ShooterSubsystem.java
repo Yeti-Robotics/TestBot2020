@@ -41,5 +41,9 @@ public class ShooterSubsystem extends SubsystemBase {
         return hoodServo.getAngle();
     }
 
+    public double calcHoodAngle(){
+        return Math.toDegrees(Math.asin(Math.sqrt(Constants.SHOOTER_HEIGHT * 2 * Constants.GRAVITY) / Constants.SHOOT_1_SPEED));
+    }
+
 }
 
