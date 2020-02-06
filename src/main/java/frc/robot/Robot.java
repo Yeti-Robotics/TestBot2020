@@ -59,9 +59,7 @@ public class Robot extends TimedRobot {
     // cam.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 150, 30);
     // cam.setBrightness(50);
 
-    jevoisView = CameraServer.getInstance().startAutomaticCapture(0);
-    jevoisView.setVideoMode(VideoMode.PixelFormat.kYUYV, 320, 240, 30);
-
+    
     robotContainer = new RobotContainer();
 
     jevois = new JeVois();

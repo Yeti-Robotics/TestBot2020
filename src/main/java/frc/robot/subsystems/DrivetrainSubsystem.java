@@ -1,17 +1,24 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.PWMTalonFX;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import org.opencv.video.SparsePyrLKOpticalFlow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private Spark left1Spark;
@@ -20,8 +27,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private Spark right2Spark;
     private Spark left3Spark;
     private Spark right3Spark;
-// Any variables/fields used in the constructor must appear before the "INSTANCE" variable
-// so that they are initialized before the constructor is called.
+
+    private TalonFX falcon;
+    // Any variables/fields used in the constructor must appear before the
+    // "INSTANCE" variable
+    // so that they are initialized before the constructor is called.
 
     public DrivetrainSubsystem() {
         left1Spark = new Spark(Constants.LEFT_SPARK_1);
@@ -31,8 +41,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         right2Spark = new Spark(Constants.RIGHT_SPARK_2);
         right3Spark = new Spark(Constants.RIGHT_SPARK_3);
 
+        falcon = new TalonFX(5);
+
         left3Spark.setInverted(true);
+        falcon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+
     }
+
     public void drive(double leftPower, double rightPower) {
         left1Spark.set(leftPower);
         left2Spark.set(leftPower);
@@ -43,8 +58,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public void driveWithMinPower(double leftPower, double rightPower, double minAbsolutePower) {
-        double realLeftPower = (leftPower/Math.abs(leftPower))*Math.max(Math.abs(leftPower), minAbsolutePower);
-        double realRightPower = (rightPower/Math.abs(rightPower))*Math.max(Math.abs(rightPower), minAbsolutePower);
+        double realLeftPower = (leftPower / Math.abs(leftPower)) * Math.max(Math.abs(leftPower), minAbsolutePower);
+        double realRightPower = (rightPower / Math.abs(rightPower)) * Math.max(Math.abs(rightPower), minAbsolutePower);
 
         left1Spark.set(realLeftPower);
         left2Spark.set(realLeftPower);
@@ -52,6 +67,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
         right1Spark.set(realRightPower);
         right2Spark.set(realRightPower);
         right3Spark.set(realRightPower);
+    }
+
+    public void testFalcon() {
+        falcon.set(ControlMode.PercentOutput, 0.5);
+    }
+
+
+    public double getFalconEncoder() {
+        TalonFXSensorCollection sensorCollection = falcon.getSensorCollection();
+        return sensorCollection.getIntegratedSensorPosition();
     }
 
     @Override
@@ -77,5 +102,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
     }
+
 }
 

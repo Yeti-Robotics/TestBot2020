@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.drivetrain.TestFalcon;
 import frc.robot.commands.drivetrain.TurnToTargetCommand;
 import frc.robot.commands.funnel.FunnelInCommand;
 import frc.robot.commands.neck.MoveUpNeckCommand;
@@ -45,7 +46,7 @@ public class RobotContainer {
   private NeckSubsystem neckSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private FunnelSubsystem funnelSubsystem;
-
+  
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -93,6 +94,9 @@ public class RobotContainer {
 
     JoystickButton shoot = new JoystickButton(secondaryJoy, 7);
     shoot.whenPressed(new ShootCommand(shooterSubsystem));
+
+    JoystickButton falcon = new JoystickButton(secondaryJoy, 12);
+    falcon.whenPressed(new TestFalcon(drivetrainSubsystem));
 
     JoystickButton reverseShoot = new JoystickButton(secondaryJoy, 8);
     reverseShoot.whenPressed(new ReverseShootCommand(shooterSubsystem));
