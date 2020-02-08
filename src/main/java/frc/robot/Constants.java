@@ -16,20 +16,22 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int LEFT_SPARK_1 = 0;
-    public static final int LEFT_SPARK_2 = 1;
-    public static final int LEFT_SPARK_3 = 2;
-    public static final int RIGHT_SPARK_1 = 3;
-    public static final int RIGHT_SPARK_2 = 4;
-    public static final int RIGHT_SPARK_3 = 5;
-    public static final int INTAKE_SPARK = 15;
-    public static final int NECK_SPARK = 19;
-    public static final int SHOOTER_1_SPARK = 18;
-    public static final int SHOOTER_2_SPARK = 17;
-    public static final int FUNNEL_SPARK = 16;
-    public static final int CLIMBER_TALON = 13;
+    public static final int LEFT_FALCON_1 = 0;
+    public static final int LEFT_FALCON_2 = 1;
+    public static final int RIGHT_FALCON_1 = 2;
+    public static final int RIGHT_FALCON_2 = 3;
 
-    public static final int SHOOTER_SERVO = 14;
+    public static final int FUNNEL_VICTOR = 0;
+    public static final int INTAKE_VICTOR = 1;
+    
+    public static final int NECK_TALON = 4;
+    public static final int SHOOTER_1_TALON = 5;
+    public static final int SHOOTER_2_TALON = 6;
+    public static final int CLIMBER_TALON_1 = 7;
+    public static final int CLIMBER_TALON_2 = 8;
+
+    public static final int SHOOTER_SERVO_1 = 8;
+    public static final int SHOOTER_SERVO_2 = 15;
 
     public static final int WHEEL_OF_FORTUNE_TALON = 5;
     public static final int LEFT_JOYSTICK = 0;

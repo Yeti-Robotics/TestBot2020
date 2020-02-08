@@ -1,32 +1,32 @@
 package frc.robot.subsystems;
 
-
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class NeckSubsystem extends SubsystemBase {
-    private Spark neckSpark;
+    private TalonSRX neckTalon;
     private DigitalInput lowerBeamBreak;
     private DigitalInput upperBeamBreak;
 
     public NeckSubsystem() {
-      neckSpark = new Spark(Constants.NECK_SPARK);
+      neckTalon = new TalonSRX(Constants.NECK_TALON);
       lowerBeamBreak = new DigitalInput(Constants.LOWER_BEAM_BREAK);
       upperBeamBreak = new DigitalInput(Constants.UPPER_BEAM_BREAK);
     }
 
     public void moveUp(){
-        neckSpark.set(Constants.NECK_UP_SPEED);
+        neckTalon.set(ControlMode.PercentOutput, Constants.NECK_UP_SPEED);
     }
 
     public void moveDown(){
-        neckSpark.set(Constants.NECK_DOWN_SPEED);
+        neckTalon.set(ControlMode.PercentOutput, Constants.NECK_DOWN_SPEED);
     }
 
     public void stopNeck(){
-        neckSpark.set(0);
+        neckTalon.set(ControlMode.PercentOutput, 0);
     }
 
     public boolean getLowerBeamBreak() {

@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
-
-import edu.wpi.first.wpilibj.Spark;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,22 +12,22 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
 
-    private Spark intakeSpark;
+    private VictorSPX intakeVictor;
 
     public IntakeSubsystem() {
-        intakeSpark = new Spark(Constants.INTAKE_SPARK);
+        intakeVictor = new VictorSPX(Constants.INTAKE_VICTOR);
     }
 
     public void rollIn(){
-        intakeSpark.set(Constants.ROLL_IN_SPEED);
+        intakeVictor.set(ControlMode.PercentOutput, Constants.ROLL_IN_SPEED);
     }
 
     public void rollOut(){
-        intakeSpark.set(Constants.ROLL_OUT_SPEED);
+        intakeVictor.set(ControlMode.PercentOutput, -Constants.ROLL_IN_SPEED);
     }
 
     public void stopRoll(){
-        intakeSpark.set(0);
+        intakeVictor.set(ControlMode.PercentOutput, 0);
     }
 
 }
