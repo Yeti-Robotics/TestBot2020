@@ -8,27 +8,21 @@ import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private TalonSRX climberTalon1;
-    private TalonSRX climberTalon2;
-
+    private TalonSRX climberTalon;
     public ClimberSubsystem() {
-        climberTalon1 = new TalonSRX(Constants.CLIMBER_TALON_1);
-        climberTalon2 = new TalonSRX(Constants.CLIMBER_TALON_2);
+        climberTalon = new TalonSRX(Constants.CLIMBER_TALON);
     }
 
     public void climbUp(){
-        climberTalon1.set(ControlMode.PercentOutput, Constants.CLIMBER_SPEED);
-        climberTalon2.set(ControlMode.PercentOutput, Constants.CLIMBER_SPEED);
+        climberTalon.set(ControlMode.PercentOutput, Constants.CLIMBER_SPEED);
     }
 
     public void climbDown(){
-        climberTalon1.set(ControlMode.PercentOutput, -Constants.CLIMBER_SPEED);
-        climberTalon2.set(ControlMode.PercentOutput, -Constants.CLIMBER_SPEED);
+        climberTalon.set(ControlMode.PercentOutput, -Constants.CLIMBER_SPEED);
     }
 
     public void stopClimb(){
-        climberTalon1.set(ControlMode.PercentOutput, 0);
-        climberTalon2.set(ControlMode.PercentOutput, 0);
+        climberTalon.set(ControlMode.PercentOutput, 0);
     }
 
 }

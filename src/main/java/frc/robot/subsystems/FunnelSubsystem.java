@@ -1,30 +1,28 @@
 package frc.robot.subsystems;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class FunnelSubsystem extends SubsystemBase {
 
-    private VictorSPX funnelVictor;
+    private Spark funnelSpark;
 
     public FunnelSubsystem() {
-        funnelVictor = new VictorSPX(Constants.FUNNEL_VICTOR);
+        funnelSpark = new Spark(Constants.FUNNEL_SPARK);
     }
 
     public void funnelIn() {
-        funnelVictor.set(ControlMode.PercentOutput,Constants.FUNNEL_IN_SPEED);
+        funnelSpark.set(Constants.FUNNEL_IN_SPEED);
     }
 
     public void funnelOut() {
-        funnelVictor.set(ControlMode.PercentOutput,-Constants.FUNNEL_IN_SPEED);
+        funnelSpark.set(Constants.FUNNEL_OUT_SPEED);
     }
 
     public void funnelStop() {
-        funnelVictor.set(ControlMode.PercentOutput, 0);
+        funnelSpark.set(0);
     }
 
 }
