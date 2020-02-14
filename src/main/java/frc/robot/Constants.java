@@ -29,7 +29,8 @@ public final class Constants {
     public static final int FUNNEL_SPARK = 16;
     public static final int CLIMBER_TALON = 13;
 
-    public static final int SHOOTER_SERVO = 14;
+    public static final int SHOOTER_SERVO_1 = 9;
+    public static final int SHOOTER_SERVO_2 = 8;
 
     public static final int WHEEL_OF_FORTUNE_TALON = 5;
     public static final int LEFT_JOYSTICK = 0;

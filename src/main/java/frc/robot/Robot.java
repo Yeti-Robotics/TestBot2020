@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WheelOfFortuneSubsystem;
 import frc.robot.utils.Contour;
 import frc.robot.utils.JeVois;
@@ -41,7 +42,7 @@ import frc.robot.utils.Limelight;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  public static RobotContainer robotContainer;
+  private RobotContainer robotContainer;
 
   private UsbCamera jevoisView;
 
@@ -61,8 +62,8 @@ public class Robot extends TimedRobot {
 
     
     robotContainer = new RobotContainer();
-
     jevois = new JeVois();
+
   }
 
   /**
@@ -110,6 +111,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("distance", Limelight.getDistance());
 
     SmartDashboard.putNumber("hor distance", Limelight.getHorDistance());
+
   }
 
  

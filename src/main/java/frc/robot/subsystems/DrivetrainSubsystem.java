@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.PWMTalonFX;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -9,6 +8,7 @@ import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -44,7 +44,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         falcon = new TalonFX(5);
 
         left3Spark.setInverted(true);
-        falcon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+        falcon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
 
     }
 
@@ -70,22 +70,33 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public void testFalcon() {
-        falcon.set(ControlMode.PercentOutput, 0.5);
+        falcon.set(TalonFXControlMode.PercentOutput, 0.3);
     }
 
+    public void stopFalcon() {
+        falcon.set(TalonFXControlMode.PercentOutput, 0);
+    }
+
+    public void resetEncoder(){
+        falcon.setSelectedSensorPosition(0);
+    }
+
+    // public double getFalconEncoder() {
+    //     TalonFXSensorCollection sensorCollection = falcon.getSensorCollection();
+    //     return sensorCollection.getIntegratedSensorPosition();
+    // }
 
     public double getFalconEncoder() {
-        TalonFXSensorCollection sensorCollection = falcon.getSensorCollection();
-        return sensorCollection.getIntegratedSensorPosition();
+        return falcon.getSelectedSensorPosition();
     }
 
     @Override
     public void periodic() {
-        double leftY = Robot.robotContainer.leftJoy.getY();
-        double rightY = Robot.robotContainer.rightJoy.getY();
-        drive(-leftY, rightY);
+        // double leftY = Robot.robotContainer.leftJoy.getY();
+        // double rightY = Robot.robotContainer.rightJoy.getY();
+        //drive(-leftY, rightY);
 
-        // System.out.println("drivetrain periodic");
+        // System.out.println(leftY + ", " + rightY);
 
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         NetworkTableEntry tx = table.getEntry("tx");

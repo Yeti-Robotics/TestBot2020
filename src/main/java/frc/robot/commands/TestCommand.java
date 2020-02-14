@@ -5,49 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drivetrain;
-
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class TestFalcon extends CommandBase {
+public class TestCommand extends CommandBase {
   /**
-   * Creates a new TestFalcon.
+   * Creates a new TestCommand.
    */
-  private final DrivetrainSubsystem drivetrainSubsystem;
-
-  public TestFalcon(DrivetrainSubsystem drivetrainSubsystem) {
+  public TestCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.drivetrainSubsystem = drivetrainSubsystem;
-    addRequirements(drivetrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrainSubsystem.resetEncoder();
+    System.out.println("Command Works");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Encoder Output: " + drivetrainSubsystem.getFalconEncoder());
-    drivetrainSubsystem.testFalcon();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrainSubsystem.stopFalcon();
+    System.out.println("Command Ends");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    // return drivetrainSubsystem.getFalconEncoder() >= 10240;
-    return drivetrainSubsystem.getFalconEncoder() >= 100000;
+    return true;
   }
 }
