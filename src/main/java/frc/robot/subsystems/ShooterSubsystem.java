@@ -42,12 +42,14 @@ public class ShooterSubsystem extends SubsystemBase {
         super.periodic();
     }
 
-    public void setServo(double pos){
-    //     hoodServo1.set(pos);
-    //     hoodServo2.set(1-pos);
-        hoodServo1.setAngle(180-pos);
-        hoodServo2.setAngle(pos);
+    public void setServo(double pos) {
+        pos *= Constants.SERVO_RATIO;
+        hoodServo1.setAngle(pos);
+        hoodServo2.setAngle(180 - pos);
+    }
 
+    public double getHoodPosition(){
+        return hoodServo1.getPosition();
     }
 
     public void resetServo(){
@@ -56,10 +58,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public double getHoodAngle(){
         return hoodServo1.getAngle();
-    }
-
-    public double getHoodPosition(){
-        return hoodServo1.getPosition();
     }
 
     public double calcHoodAngle(){

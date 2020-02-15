@@ -65,4 +65,6 @@ public final class Constants {
     public static final double kTurnP = .06;
     public static final double kTurnI = 0;
     public static final double kTurnD = .005;
+
+    public static final double SERVO_RATIO = 18.0 / 25.0;
 }
