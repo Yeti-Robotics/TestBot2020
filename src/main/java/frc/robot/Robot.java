@@ -7,30 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import com.revrobotics.ColorSensorV3;
-
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.hal.util.UncleanStatusException;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.WheelOfFortuneSubsystem;
-import frc.robot.utils.Contour;
 import frc.robot.utils.JeVois;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.utils.Limelight;
 
 /**

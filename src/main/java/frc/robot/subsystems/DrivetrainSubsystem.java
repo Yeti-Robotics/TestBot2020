@@ -1,24 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMTalonFX;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
-import org.opencv.video.SparsePyrLKOpticalFlow;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private Spark left1Spark;
@@ -29,6 +21,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private Spark right3Spark;
 
     private TalonFX falcon;
+
+    private ADIS16448_IMU gyro;
     // Any variables/fields used in the constructor must appear before the
     // "INSTANCE" variable
     // so that they are initialized before the constructor is called.
@@ -46,6 +40,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         left3Spark.setInverted(true);
         falcon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
 
+        gyro = new ADIS16448_IMU();
+        gyro.configCalTime(8);
+        gyro.reset();
+        gyro.calibrate();
     }
 
     public void drive(double leftPower, double rightPower) {
@@ -90,13 +88,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
         return falcon.getSelectedSensorPosition();
     }
 
+    public double getAngle() {
+        return gyro.getAngle();
+    }
+
     @Override
     public void periodic() {
+
+        System.out.println("temp" + falcon.getTemperature());
         // double leftY = Robot.robotContainer.leftJoy.getY();
         // double rightY = Robot.robotContainer.rightJoy.getY();
         //drive(-leftY, rightY);
 
         // System.out.println(leftY + ", " + rightY);
+
+        //System.out.println("Gyro angle: " + getAngle());
+//        System.out.printf("Gyro x, y, z: %f, %f, %f\n", gyro.getGyroAngleX(), gyro.getGyroAngleY(), gyro.getGyroAngleZ());
+//        System.out.println("Gyro valuez" + gyro.getAccelInstantX());
+        System.out.println(gyro.getGyroAngleY());
 
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         NetworkTableEntry tx = table.getEntry("tx");

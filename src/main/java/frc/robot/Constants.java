@@ -22,7 +22,7 @@ public final class Constants {
     public static final int RIGHT_SPARK_1 = 3;
     public static final int RIGHT_SPARK_2 = 4;
     public static final int RIGHT_SPARK_3 = 5;
-    public static final int INTAKE_SPARK = 15;
+    public static final int INTAKE_SPARK = 6;
     public static final int NECK_SPARK = 19;
     public static final int SHOOTER_1_SPARK = 18;
     public static final int SHOOTER_2_SPARK = 17;

@@ -38,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // TODO Auto-generated method stub
-        System.out.println("position: " + hoodServo1.getPosition() + " angle: " + hoodServo1.getAngle() + "position variable: " + getHoodPosition());
+//        System.out.println("position: " + hoodServo1.getPosition() + " angle: " + hoodServo1.getAngle() + "position variable: " + getHoodPosition());
         super.periodic();
     }
 

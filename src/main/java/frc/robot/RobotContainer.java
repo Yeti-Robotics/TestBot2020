@@ -12,25 +12,23 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.TestCommand;
-import frc.robot.commands.drivetrain.TestFalcon;
+import frc.robot.commands.drivetrain.DriveForTimeCommand;
 import frc.robot.commands.drivetrain.TurnToTargetCommand;
 import frc.robot.commands.funnel.FunnelInCommand;
-import frc.robot.commands.neck.MoveUpNeckCommand;
+import frc.robot.commands.intake.RollInCommand;
+import frc.robot.commands.intake.RollOutCommand;
 import frc.robot.commands.neck.MoveDownNeckCommand;
+import frc.robot.commands.neck.MoveUpNeckCommand;
 import frc.robot.commands.shooting.ReverseShootCommand;
 import frc.robot.commands.shooting.SetHoodAngleCommand;
 import frc.robot.commands.shooting.ShootCommand;
 import frc.robot.commands.shooting.TestServoCommand;
 import frc.robot.commands.wheelOfFortune.PositionControlCommand;
-import frc.robot.commands.intake.RollInCommand;
-import frc.robot.commands.intake.RollOutCommand;
 import frc.robot.commands.wheelOfFortune.RotationControlCommand;
 import frc.robot.subsystems.*;
-
-import java.util.function.BooleanSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -60,12 +58,12 @@ public class RobotContainer {
 
     drivetrainSubsystem = new DrivetrainSubsystem();
     wheelOfFortuneSubsystem = new WheelOfFortuneSubsystem();
-    intakeSubsystem = new IntakeSubsystem();
     neckSubsystem = new NeckSubsystem();
     shooterSubsystem = new ShooterSubsystem();
     funnelSubsystem = new FunnelSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
 
-//    drivetrainSubsystem.setDefaultCommand(new RunCommand(() -> {drivetrainSubsystem.drive(-getLeftY(), -getLeftY()))});
+    drivetrainSubsystem.setDefaultCommand(new RunCommand(() -> drivetrainSubsystem.drive(getLeftY(), getRightY()), drivetrainSubsystem));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -77,6 +75,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    setJoystickButton(leftJoy, 5,new DriveForTimeCommand(drivetrainSubsystem, 1000, 0.5)); // test auto
+
 
     setJoystickButton(leftJoy, 3, new PositionControlCommand(wheelOfFortuneSubsystem));
 
@@ -121,7 +121,7 @@ public class RobotContainer {
   }
 
   public double getLeftY() {
-    return leftJoy.getY();
+    return -leftJoy.getY();
     // return leftJoy.getRawAxis(RobotMap.DRIVERSTATION_LEFT_Y_AXIS);
   }
 
