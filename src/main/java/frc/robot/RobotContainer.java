@@ -127,18 +127,14 @@ public class RobotContainer {
     // return leftJoy.getRawAxis(RobotMap.DRIVERSTATION_LEFT_Y_AXIS);
   }
 
-  // Gets the Y direction of the left drive joystick
   public double getLeftX() {
     return leftJoy.getX();
   }
 
-  // Gets the Y direction of the right drive joystick
   public double getRightY() {
     return rightJoy.getY();
-    // return rightJoy.getRawAxis(RobotMap.DRIVERSTATION_RIGHT_Y_AXIS);
   }
 
-  // Gets the X direction of the right drive joystick
   public double getRightX() {
     return rightJoy.getX();
   }
