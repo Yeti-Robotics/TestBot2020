@@ -45,7 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setServo(double pos) {
         pos *= Constants.SERVO_RATIO;
         hoodServo1.setAngle(pos);
-        hoodServo2.setAngle(180 - pos);
+//        hoodServo2.setAngle(180 - pos);
     }
 
     public double getHoodPosition(){

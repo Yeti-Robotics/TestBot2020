@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.drivetrain.DriveForTimeCommand;
+// import frc.robot.commands.drivetrain.DriveForTimeCommand;
+// import frc.robot.commands.drivetrain.GyroCalibrateCommand;
 import frc.robot.commands.drivetrain.TurnToTargetCommand;
 import frc.robot.commands.funnel.FunnelInCommand;
 import frc.robot.commands.intake.RollInCommand;
@@ -75,8 +76,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    setJoystickButton(leftJoy, 5,new DriveForTimeCommand(drivetrainSubsystem, 1000, 0.5)); // test auto
-
+    // setJoystickButton(leftJoy, 5,new DriveForTimeCommand(drivetrainSubsystem, 1000, 0.5)); // test auto
 
     setJoystickButton(leftJoy, 3, new PositionControlCommand(wheelOfFortuneSubsystem));
 
@@ -97,6 +97,8 @@ public class RobotContainer {
     setJoystickButton(rightJoy, 1, new TestServoCommand(shooterSubsystem, 180));
 
     setJoystickButton(leftJoy, 1, new ReverseShootCommand(shooterSubsystem));
+
+    // setJoystickButton(leftJoy, 9, new GyroCalibrateCommand(drivetrainSubsystem));
 
 //shoot
     setJoystickButton(leftJoy, 2, new SequentialCommandGroup(

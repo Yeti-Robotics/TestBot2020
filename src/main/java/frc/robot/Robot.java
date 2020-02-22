@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.utils.JeVois;
 import frc.robot.utils.Limelight;
 
@@ -32,6 +33,8 @@ public class Robot extends TimedRobot {
   private UsbCamera jevoisView;
 
   private JeVois jevois;
+  private DrivetrainSubsystem drivetrainSubsystem;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -45,9 +48,10 @@ public class Robot extends TimedRobot {
     // cam.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 150, 30);
     // cam.setBrightness(50);
 
-    
     robotContainer = new RobotContainer();
     jevois = new JeVois();
+    drivetrainSubsystem = new DrivetrainSubsystem();
+
 
   }
 
@@ -97,7 +101,9 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("hor distance", Limelight.getHorDistance());
 
+    drivetrainSubsystem.operatorControl();
   }
+
 
  
   /**
