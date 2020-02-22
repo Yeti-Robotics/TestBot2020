@@ -26,8 +26,8 @@ public class RotationControlCommand extends CommandBase {
     @Override
     public void execute() {
         wheelOfFortuneSubsystem.moveWheel(.4);
-        if (WheelOfFortuneSubsystem.wheelColor != previousColor && WheelOfFortuneSubsystem.wheelColor != WheelColor.IDKBRO){
-            colorCount++;
+            if (WheelOfFortuneSubsystem.wheelColor != previousColor && WheelOfFortuneSubsystem.wheelColor != WheelColor.IDKBRO){
+                colorCount++;
             previousColor = WheelOfFortuneSubsystem.wheelColor;
         }
     }

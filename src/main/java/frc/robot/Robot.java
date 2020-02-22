@@ -7,24 +7,16 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import com.revrobotics.ColorSensorV3;
-
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.hal.util.UncleanStatusException;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.WheelOfFortuneSubsystem;
-import frc.robot.utils.Contour;
 import frc.robot.utils.JeVois;
+import frc.robot.utils.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,7 +27,7 @@ import frc.robot.utils.JeVois;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  public static RobotContainer robotContainer;
+  private RobotContainer robotContainer;
 
   private UsbCamera jevoisView;
 
@@ -53,12 +45,10 @@ public class Robot extends TimedRobot {
     // cam.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 150, 30);
     // cam.setBrightness(50);
 
-    jevoisView = CameraServer.getInstance().startAutomaticCapture(0);
-    jevoisView.setVideoMode(VideoMode.PixelFormat.kYUYV, 320, 240, 30);
-
+    
     robotContainer = new RobotContainer();
-
     jevois = new JeVois();
+
   }
 
   /**
@@ -84,7 +74,28 @@ public class Robot extends TimedRobot {
     // System.out.println(WheelOfFortuneSubsystem.wheelColor);
     jevois.parseStream();
 
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+    NetworkTableEntry tlong = table.getEntry("tlong");
 
+//read values periodically
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+    double schlong = tlong.getDouble(0.0);
+
+//post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+
+    SmartDashboard.putNumber("schlong", schlong);
+
+    SmartDashboard.putNumber("distance", Limelight.getDistance());
+
+    SmartDashboard.putNumber("hor distance", Limelight.getHorDistance());
 
   }
 
